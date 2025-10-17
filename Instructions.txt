@@ -1,0 +1,952 @@
+Alpha Radar: Solana Sprint
+Uncover sophisticated methods to unlock a subset of data within a large PumpFun historical dataset using Catboost.
+
+
+Alpha Radar: Solana Sprint
+
+Submit Prediction
+Overview
+This competition challenges you to build a machine learning model that can identify a subset of tokens within a dataset. This is not a dataset that is open ended and exposes you to false positives and the frustration of engineered tokens designed to be deceptive. With this you are just looking for the best way to identify a subset of our dataset.
+
+Your goal:
+
+Engineer features using the provided Pumpfun dataset and train a CatBoost model which reliably predicts the target tokens, while minimizing false positives. 75% minimum returned results is the baseline for a successful submission.
+
+Provided:
+
+•⁠ ⁠A 30 day dataset of Pumpfun token transactions. This dataset has already been processed into a core set of transaction metadata and technical indicators.
+•⁠ ⁠A CSV of target tokens
+
+Requirements:
+
+•⁠ ⁠Use the provided dataset to engineer your features, do not supplement the dataset with additional external sources.
+•⁠ ⁠Use CatBoost
+•⁠ ⁠The prediction must be achieved within the first 30 seconds of a token lifespan (e.g. from the tokens first transaction based on dataset timestamp).
+Submissions that just search for the goal data in the larger dataset to return a 100% result will not be considered. The goal is to engineer a model to predict the target tokens not just find the target tokens in the dataset by using the target tokens..
+
+Deliverables:
+
+•⁠ ⁠A Jupiter notebook with your solution
+•⁠ ⁠A CSV file of all tokens which exceeded your prediction threshold. (token, threshold, prediction value, isTargetToken)
+
+You can ask questions in the Discussion section or join the community https://discord.gg/cabApvps.
+
+Start
+
+10 days ago
+Close
+24 days to go
+Description
+Most Pumpfun tokens on Solana are short-lived. Some get rugged, some fade with little traction, and a rare few take off.
+
+This competition gives you access to 30 days of Pumpfun token transactions. The dataset has already been processed into a core set of transaction metadata and technical indicators, making it easier to build features while still staying close to the raw behavior of tokens.
+
+In addition, we provide a CSV of target tokens — those identified as profitable by a high-performing wallet’s strategy.
+
+Your task:
+
+Engineer features only from the provided Pumpfun dataset
+
+Train a CatBoost model to predict with at least 75% accuracy, which tokens are likely to be part of the profitable subset
+
+Ensure predictions are made within the first 30 seconds of a token’s lifespan (based on timestamp)
+
+This challenge is:
+
+Beginner-friendly: clean dataset with ready-to-use structure
+
+Advanced: requires creative feature engineering and precision to minimize false positives
+
+Practical: mirrors real-world token discovery pipelines in Solana
+
+External data or alternative ML frameworks (LightGBM, XGBoost, deep learning, etc.) are not allowed.
+
+Evaluation
+Submissions are evaluated using the Jaccard Index (Intersection-over-Union), comparing your predicted positive set to the true target set on a private holdout. Provide a confusion matrix using Jaccard scoring in your results. Higher Jaccard indicates better performance.
+
+Minimum 75% Recall on the private set is required for consideration.
+
+Prizes
+The participants or teams are eligible for these total prizes which will be sent as USDC to a confirmed Solana wallet after the contest is over and the winners awarded.
+
+Total Prizes Available: 6,000 USDC
+
+1st Place - 3,000 USDC
+2nd Place - 1,500 USDC
+3rd Place - 1,000 USDC
+4th Place - 500 USDC
+
+Citation
+Twain Ayar. Alpha Radar: Solana Sprint. https://kaggle.com/competitions/alpha-radar-solana-sprint, 2025. Kaggle.
+
+
+Dataset Description
+This dataset contains the first 30 seconds of post-mint transaction data for PumpFun tokens created in the month of September 2025.
+The data was scraped using a proprietary parsing tool from a private Solana node.
+The categories are fixed and must be adhered to.
+
+Data Sources
+
+The full 30-second dataset:
+🔗 https://www.kaggle.com/datasets/twainayar/pumpfun-30s-september-2025
+
+The target tokens (wallet buys):
+🔗 https://drive.google.com/file/d/1EsqpZXPBU-6m0djDmccCrtUX07jV2fHA/view?usp=sharing
+
+The Goal
+
+The target tokens are contained within the larger dataset.
+Using the available categories, engineer a CatBoost model that can isolate at least 75 % of the target tokens within the first 30 seconds of their lifespan.
+
+Update (October 2025)
+
+A new evaluation dataset has been uploaded to prevent data leakage and improve leaderboard accuracy.
+All submissions must now contain exactly 64 208 rows, one per token ID in the evaluation set.
+
+Columns
+
+index Row ID / sequence
+timestamp Event time (UTC)
+mint_token_id Token mint address
+holder Wallet address involved
+trade_mode buy / sell / other action type
+token_quantity Tokens bought / sold amount
+creator Token creator address
+creator_fee Creator fee (absolute)
+creator_fee_pump PumpFun creator fee
+market_cap_usd Circulating market cap (USD)
+token_delta Net token change
+sol_delta Net SOL spent / received
+buy_count Number of buys
+sell_count Number of sells
+total_count Total transactions (buys + sells)
+token_volume Traded token volume
+sol_volume Traded SOL volume
+liquidity_ratio Liquidity / volume ratio
+virtual_sol_reserves Virtual SOL in pool
+virtual_token_reserves Virtual tokens in pool
+consumed_gas Compute units used
+fee Transaction fee in SOL
+relative_strength_index RSI momentum indicator
+bollinger_relative_position Price vs Bollinger bands
+volume_oscillator Volume momentum measure
+rate_of_change % change over window
+money_flow_index Volume-weighted RSI
+total_holders All-time unique holders
+current_holders Current wallets holding
+top10_percent_total Top 10 % holdings share
+creator_balance Creator’s current token balance
+creator_sold Tokens sold by creator
+holder_ratio Holders / supply metric
+buy_sell_ratio Buys / sells ratio
+
+Prediction Target
+
+Your objective is to predict whether a token appears in the Target Token Dataset.
+This is a binary classification task.
+
+Target label:
+
+is_target = 1 → token was bought by the target wallet
+is_target = 0 → token was not bought
+
+Submission Format
+
+Your submission must be a CSV with the following structure:
+
+mint_token_id,is_target
+,
+
+Example:
+
+mint_token_id,is_target
+14XBCQLJ6A8jifCBFsp1NfW3kG9FxbY7xbiQSxfXpump,1
+4shdnB4wA5TA5wphgD1gQFmbaAACtbUyiepLDUoopump,0
+
+Header row required Exactly 64 208 rows (one for each token in the evaluation set) is_target values must be binary (0 or 1)
+
+Files
+6 files
+
+Size
+901.94 MB
+
+Type
+csv
+
+License
+MIT
+
+Sample_Dataset.csv(267.78 MB)
+
+10 of 34 columns
+
+About this file
+This dataset is sunsetted. Use the Evaluation Set 30s Chunks for the contest submissions.
+
+
+index
+
+timestamp
+
+mint_token_id
+
+holder
+
+trade_mode
+
+token_quantity
+
+creator
+
+creator_fee
+
+creator_fee_pump
+
+market_cap_usd
+Label	Count
+1.00 - 14381.50	14,381
+14381.50 - 28762.00	14,380
+28762.00 - 43142.50	14,381
+43142.50 - 57523.00	14,380
+57523.00 - 71903.50	14,381
+71903.50 - 86284.00	14,380
+86284.00 - 100664.50	14,381
+100664.50 - 115045.00	14,380
+115045.00 - 129425.50	14,381
+129425.50 - 143806.00	14,380
+143806.00 - 158186.50	14,381
+158186.50 - 172567.00	14,380
+172567.00 - 186947.50	14,381
+186947.50 - 201328.00	14,380
+201328.00 - 215708.50	14,381
+215708.50 - 230089.00	14,380
+230089.00 - 244469.50	14,381
+244469.50 - 258850.00	14,380
+258850.00 - 273230.50	14,381
+273230.50 - 287611.00	14,380
+287611.00 - 301991.50	14,381
+301991.50 - 316372.00	14,380
+316372.00 - 330752.50	14,381
+330752.50 - 345133.00	14,380
+345133.00 - 359513.50	14,381
+359513.50 - 373894.00	14,380
+373894.00 - 388274.50	14,381
+388274.50 - 402655.00	14,380
+402655.00 - 417035.50	14,381
+417035.50 - 431416.00	14,380
+431416.00 - 445796.50	14,381
+445796.50 - 460177.00	14,380
+460177.00 - 474557.50	14,381
+474557.50 - 488938.00	14,380
+488938.00 - 503318.50	14,381
+503318.50 - 517699.00	14,380
+517699.00 - 532079.50	14,381
+532079.50 - 546460.00	14,380
+546460.00 - 560840.50	14,381
+560840.50 - 575221.00	14,380
+575221.00 - 589601.50	14,381
+589601.50 - 603982.00	14,380
+603982.00 - 618362.50	14,381
+618362.50 - 632743.00	14,380
+632743.00 - 647123.50	14,381
+647123.50 - 661504.00	14,380
+661504.00 - 675884.50	14,381
+675884.50 - 690265.00	14,380
+690265.00 - 704645.50	14,381
+704645.50 - 719026.00	14,381
+1
+719k
+36000
+
+unique values
+37678
+
+unique values
+AcULspHXYRmoKkUhKN2WmFo4f8USUkmJtAE1LE2twJ2E
+2%
+Dsi8ntQziuCPt16TStjG4tgviracSryHsRcH72zbwRgu
+1%
+Other (696509)
+97%
+buy
+59%
+sell
+41%
+Label	Count
+-8387950000000.00 - -8220175499748.57	5
+-8220175499748.57 - -8052400999497.14	1
+-8052400999497.14 - -7884626499245.72	3
+-7884626499245.72 - -7716851998994.29	3
+-7716851998994.29 - -7549077498742.86	8
+-7549077498742.86 - -7381302998491.43	1
+-7381302998491.43 - -7213528498240.00	1
+-6374655996982.86 - -6206881496731.44	1
+-6039106996480.01 - -5871332496228.58	1
+-5703557995977.15 - -5535783495725.72	1
+-5535783495725.72 - -5368008995474.30	1
+-5368008995474.30 - -5200234495222.87	1
+-4361361993965.73 - -4193587493714.30	4
+-3858038493211.44 - -3690263992960.02	2
+-3522489492708.59 - -3354714992457.16	3
+-3354714992457.16 - -3186940492205.73	7
+-166999487680.03 - 775012571.40	718,983
+-8388b
+775m
+23492
+
+unique values
+Label	Count
+0.00 - 357846000000000000.00	718,978
+357846000000000000.00 - 715692000000000000.00	1
+1073538000000000000.00 - 1431384000000000000.00	1
+2147076000000000000.00 - 2504922000000000000.00	1
+2504922000000000000.00 - 2862768000000000000.00	2
+2862768000000000000.00 - 3220614000000000000.00	1
+3936306000000000000.00 - 4294152000000000000.00	5
+5367690000000000000.00 - 5725536000000000000.00	1
+5725536000000000000.00 - 6083382000000000000.00	1
+6083382000000000000.00 - 6441228000000000000.00	7
+6799074000000000000.00 - 7156920000000000000.00	1
+7872612000000000000.00 - 8230458000000000000.00	1
+8230458000000000000.00 - 8588304000000000000.00	2
+8588304000000000000.00 - 8946150000000000000.00	4
+8946150000000000000.00 - 9303996000000000000.00	1
+9661842000000000000.00 - 10019688000000000000.00	1
+10735380000000000000.00 - 11093226000000000000.00	1
+11451072000000000000.00 - 11808918000000000000.00	1
+12524610000000000000.00 - 12882456000000000000.00	1
+12882456000000000000.00 - 13240302000000000000.00	2
+13240302000000000000.00 - 13598148000000000000.00	1
+13598148000000000000.00 - 13955994000000000000.00	1
+14313840000000000000.00 - 14671686000000000000.00	1
+14671686000000000000.00 - 15029532000000000000.00	1
+15029532000000000000.00 - 15387378000000000000.00	2
+16818762000000000000.00 - 17176608000000000000.00	6
+17534454000000000000.00 - 17892300000000000000.00	1
+0
+17892300000b
+Label	Count
+0.00 - 364450000000000000.00	718,980
+728900000000000000.00 - 1093350000000000000.00	1
+2186700000000000000.00 - 2551150000000000000.00	3
+2551150000000000000.00 - 2915600000000000000.00	3
+2915600000000000000.00 - 3280050000000000000.00	2
+3280050000000000000.00 - 3644500000000000000.00	1
+3644500000000000000.00 - 4008950000000000000.00	1
+4008950000000000000.00 - 4373400000000000000.00	1
+5102300000000000000.00 - 5466750000000000000.00	2
+6195650000000000000.00 - 6560100000000000000.00	2
+7289000000000000000.00 - 7653450000000000000.00	1
+8017900000000000000.00 - 8382350000000000000.00	1
+8382350000000000000.00 - 8746800000000000000.00	3
+8746800000000000000.00 - 9111250000000000000.00	1
+9475700000000000000.00 - 9840150000000000000.00	2
+10204600000000000000.00 - 10569050000000000000.00	2
+11297950000000000000.00 - 11662400000000000000.00	2
+12026850000000000000.00 - 12391300000000000000.00	3
+13120200000000000000.00 - 13484650000000000000.00	2
+14213550000000000000.00 - 14578000000000000000.00	2
+14578000000000000000.00 - 14942450000000000000.00	4
+15671350000000000000.00 - 16035800000000000000.00	1
+16035800000000000000.00 - 16400250000000000000.00	1
+16400250000000000000.00 - 16764700000000000000.00	3
+17858050000000000000.00 - 18222500000000000000.00	2
+0
+18222500000b
+Label	Count
+4054.05 - 6718697.21	718,978
+33577269.82 - 40291912.97	1
+40291912.97 - 47006556.12	1
+47006556.12 - 53721199.28	1
+60435842.43 - 67150485.58	1
+87294415.04 - 94009058.19	1
+94009058.19 - 100723701.35	1
+100723701.35 - 107438344.50	2
+114152987.65 - 120867630.81	3
+120867630.81 - 127582273.96	1
+127582273.96 - 134296917.11	9
+134296917.11 - 141011560.27	1
+141011560.27 - 147726203.42	1
+147726203.42 - 154440846.57	4
+154440846.57 - 161155489.72	2
+167870132.88 - 174584776.03	1
+174584776.03 - 181299419.18	1
+188014062.34 - 194728705.49	1
+194728705.49 - 201443348.64	1
+201443348.64 - 208157991.79	1
+208157991.79 - 214872634.95	1
+261875137.02 - 268589780.17	8
+329021568.55 - 335736211.70	5
+4.05k
+336m
+1
+26:28.7
+4shdnB4wA5TA5wphgD1gQFmbaAACtbUyiepLDUoopump
+86iX4v3uSvAMWsYHLVzrmKYYstf1ZxevMoe3mMDNVZYE
+sell
+-101489.9348
+8NJ7Ujpji8uMF2675mqaTSEm2DCbfJA7fiRKtiaqkaLN
+5836
+110875
+16671.28835
+2
+26:28.7
+25moJ9zLHE2Q9oisqSMKjkS4XjaGL5J6pP1yftDYpump
+HD2N5YvYZQiqqocCFj9MgD8WnRM8uCqWxA1UF3FaDzy2
+sell
+-2354414.41
+EC6F58bJae7rLn1MJomScWe9pj7p94cfHKxtirN1hBrW
+70844
+1346020
+8697.908552
+3
+26:28.7
+DHgTSAVz1bGxqzGGcEX9Zw46siX5kYCMtFcy42mXpump
+AL5KUzW7dNEig3MDE8XgPkbhbAS466vfbbQAJE4ymCa9
+sell
+-204940.3266
+EsHu56bkASf1d38jt4dLN6QxCCBk5CF4VKifANrFowKn
+5900
+112100
+8346.483698
+4
+26:28.7
+CHc1G8amTYHTphEm3zWewWi1oULrDHRx3tiAbbRVpump
+DGGu9TY35fFvTZKq34wE6mKMVbM2trXQp8Hg7TnrNhjq
+buy
+41067019.52
+H927REVfidMopK91pZp8AWy26k2vp1HHuv1Zx7Erukhd
+750001
+14250001
+5533.028652
+5
+26:28.8
+FKQKMMJAJpMQb93ghC6vXby6ebwimyNDALpjuRX7pump
+BwfQncZ114sFkcdecRELVRyDjc6BrHY9MoK338wLm4qT
+sell
+-6508975.216
+Hu655uJALykrnReosqnGHKWdFGECsRAzHdA5obGhZ24i
+100965
+1918329
+4469.713497
+6
+26:28.8
+7zRCQGR8yGWpm1XWiNcHLqWriMvNz9b6rrDghcuU6KJf
+7m4pd3gPkXNVZ8SberWocVhc2MjCACRJrNidw3KctuTU
+sell
+-7537725.955
+GZVSEAajExLJEvACHHQcujBw7nJq98GWUEZtood9LM9b
+150000
+2849987
+5722.777364
+7
+26:28.9
+CHc1G8amTYHTphEm3zWewWi1oULrDHRx3tiAbbRVpump
+6b6NzVZXuUQP5xeMwEatkvxbNekQuktgAjm4ogJgU3Z2
+buy
+4243591
+H927REVfidMopK91pZp8AWy26k2vp1HHuv1Zx7Erukhd
+81342
+1545480
+5584.513734
+8
+26:28.9
+HbXoshLxzbUE2iD93EGk5Z54n8RjnyyPLetKKFAcpump
+8oaBD6EmFp76uLsmY1RpMQwG17TCr3qnWV3xw8Ko3EBs
+buy
+76167.6226
+CUB2LXayGz4PDXceAEriQixVm4Doj718fGdTpty7aT3F
+4891
+92923
+18623.54821
+9
+26:29.1
+FKQKMMJAJpMQb93ghC6vXby6ebwimyNDALpjuRX7pump
+ExE4KqGnfHevWvNogoop2ehkVh7wwSbMFq6ZiFZgEoGb
+sell
+-1735123.006
+Hu655uJALykrnReosqnGHKWdFGECsRAzHdA5obGhZ24i
+26698
+507258
+4454.573344
+10
+26:29.2
+FKQKMMJAJpMQb93ghC6vXby6ebwimyNDALpjuRX7pump
+63KUvkrbXDRgGRhkyZET2eaGJLo7EaPi4wJAVxjSJVXr
+sell
+-1805326.025
+Hu655uJALykrnReosqnGHKWdFGECsRAzHdA5obGhZ24i
+27683
+525960
+4438.902132
+11
+26:29.2
+FLWFsZXdBanWswST9SmUKsq3ALz2SFdwF3Vhcxrtpump
+EH2DFBfckVUjU6D1GGd1H5fbvdf7p6Fx9YiWz4o5Lrgp
+buy
+279797.1055
+9GWkZ9bD7b6n1p2z4B7UU21kQcYujPHDPo7w8uYVmoHF
+14868
+282479
+15417.25546
+12
+26:29.2
+EQPLr11dDFgCYWhhbkzn4QKWgnxc7hCvWV7A6bpnFdUY
+H2eoGdwEYvi3PTUxuNKFTCPSd2fA7n8D9uW395EgVajA
+sell
+-9939745.857
+s1Y4zH86iCYyqzWGwbjDjLiVqQnXbMb7E1DGmAZpRjC
+351198
+6672754
+10094.55071
+13
+26:29.2
+6gBJh3Dp4WreYHBcNi7EnkqJXakxSwBnBFudyCHupump
+GocvMSKrYYPfm4quxBxjMJi6wyAjfHpYGGa8eboVRRo4
+sell
+-26301786.48
+EDRTuYrtCkzjv2grxvtkhkokeSFt4tyMzTeUN51k6TP1
+476088
+9045665
+5104.889658
+14
+26:29.4
+HprGCwM9yTaT7ZqLSBndDZ3aVwHHh5N75GV8hS15TiFb
+BPXhGnro18KbLZVntp94yq9BUPKLFawW7eabB63iBtky
+sell
+-15244272.25
+53kEbMkdvzog5sVZHpRDNS7xueoymB5ZgWtrF7FUeUz9
+560594
+10651273
+10421.54588
+15
+26:29.4
+FLWFsZXdBanWswST9SmUKsq3ALz2SFdwF3Vhcxrtpump
+CdAUdegwAc9M2YCgGjoTjBJ2UomoowNBpN3QBNQx3ugm
+sell
+-127067.95
+9GWkZ9bD7b6n1p2z4B7UU21kQcYujPHDPo7w8uYVmoHF
+6757
+128381
+15417.25546
+16
+26:29.4
+4shdnB4wA5TA5wphgD1gQFmbaAACtbUyiepLDUoopump
+5Pi78BoNYLFXyWWAna3o3SPeEztXYLfDXYf6MJZ9DaX
+sell
+-5401747.579
+8NJ7Ujpji8uMF2675mqaTSEm2DCbfJA7fiRKtiaqkaLN
+307394
+5840472
+16336.04327
+17
+26:29.4
+8gTvzvxq9bCEwon2qkp3L2btMftpPnNJGPXp6QVJpump
+2ZCTLNMiAQfnN1MPGSFYUMYxz33eSaYeJAwMmb8K5G8d
+sell
+-265684.8061
+6yoWq6SzYSMwfAtSQqiptqkQs9xzsMJYz9JPhKTDJGZW
+11979
+227592
+13068.96358
+18
+26:29.4
+3Cs3MP95zpSPtUKG1m5eoM8LcvpWnzX6iaUqVRCXpump
+GCi7iWxDbZWZuJHpxU2sGx2n4jRD5gW1FynCESYwKqhS
+buy
+1049454.481
+8tB6DCprboYQ5bKoJuca7EPjdgSQoR3345Lbg7NwyXuH
+79155
+1503945
+21922.96063
+19
+26:29.4
+FKQKMMJAJpMQb93ghC6vXby6ebwimyNDALpjuRX7pump
+9MbHbnL8LEFrfE19YNeo1rc6hd4Pxr4Y2vkRKeAySwoH
+sell
+-1835768.01
+Hu655uJALykrnReosqnGHKWdFGECsRAzHdA5obGhZ24i
+28050
+532933
+4423.051316
+20
+26:29.4
+6gBJh3Dp4WreYHBcNi7EnkqJXakxSwBnBFudyCHupump
+AAwkjy9BdiVYijuzWxR357fwuJW988JHTz3BmZXwoton
+sell
+-25475350.79
+EDRTuYrtCkzjv2grxvtkhkokeSFt4tyMzTeUN51k6TP1
+436807
+8299331
+4843.37615
+21
+26:29.5
+439Zie2VXoEj9PhuefXj3bkiinJMHyGHLkQKiWpzpump
+Fq8SoMGz3opRvCZTL2dUQ5siDjqW3j7kXRN6oR3kyEvZ
+sell
+-1130298.492
+CUeqVBpXZAn2zNFFp9vDs8cmEbgpu3RgkAdHsLdFdApT
+85706
+1628406
+21935.54216
+22
+26:29.5
+6gBJh3Dp4WreYHBcNi7EnkqJXakxSwBnBFudyCHupump
+DtqRR79WNMTvSRhMYDYbb5mUgoM2MB9UejePfxVe67uc
+sell
+-28844915.68
+EDRTuYrtCkzjv2grxvtkhkokeSFt4tyMzTeUN51k6TP1
+467997
+8891930
+4570.819364
+23
+26:29.5
+HGGaP3wCNFPwoBE74LePmYnxAB9EvgWBmYWYvpP1pump
+9kTfGAK6eVqVhmDntcu6toCYAS8goHFh1P1YapGRDRSh
+sell
+-1147848.715
+4xoMEtBwra6XfzZqoCi789xFF9tDJTRdZ3HLVvyD3iRZ
+84967
+1614365
+21413.7342
+24
+26:29.5
+51gii5FTHN3UDsSmFuwZRcFA6aZY4qpPmXnAHJzApump
+BvEAYQ4D2qFgkXfHynd1eCMjDPFA6JXeWqJUvTSzHYEF
+sell
+-19640808.15
+1.11111E+31
+321556
+6109548
+4654.696032
+25
+26:29.6
+51gii5FTHN3UDsSmFuwZRcFA6aZY4qpPmXnAHJzApump
+56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3
+sell
+-3228640.952
+1.11111E+31
+51656
+981452
+4624.825304
+26
+26:29.7
+Dx6PwhGk3cF5f4mPdwkYbCdjcLanjyG6FEAArZjZpump
+PmgWa5D7RtBYVuV32fPb9msjPAVhLNX4PXVaJJCQe7D
+buy
+5538379.146
+CQd6sNmXBEBTucevqQVC7wAfFMudbPwz3mc8UiPgvZEF
+594060
+11287129
+31554.00377
+27
+26:29.7
+6gBJh3Dp4WreYHBcNi7EnkqJXakxSwBnBFudyCHupump
+Esd2tz19offuHXtMdvFHqNmcqWUHpQGUHfnELAs4wmnG
+sell
+-22172768.39
+EDRTuYrtCkzjv2grxvtkhkokeSFt4tyMzTeUN51k6TP1
+341972
+6497457
+4376.649048
+28
+26:29.8
+7zRCQGR8yGWpm1XWiNcHLqWriMvNz9b6rrDghcuU6KJf
+BxJpQYhWEPVQ97zWYVKPS74RWqdhh5bxPkTydWcxw1k4
+buy
+24645891.61
+GZVSEAajExLJEvACHHQcujBw7nJq98GWUEZtood9LM9b
+500000
+9500000
+6048.394163
+29
+26:29.8
+DHgTSAVz1bGxqzGGcEX9Zw46siX5kYCMtFcy42mXpump
+D41t2LNMZceZo7EhYeYbUsf5fKHanyRg52gagapD1jTR
+buy
+6885054.872
+EsHu56bkASf1d38jt4dLN6QxCCBk5CF4VKifANrFowKn
+200000
+3800000
+8502.323518
+30
+26:30.0
+4shdnB4wA5TA5wphgD1gQFmbaAACtbUyiepLDUoopump
+6LZfBxexC9bmrzGqXLrFRnWUkKXksMxLaMa6aZWNKGDz
+sell
+-421828.9015
+8NJ7Ujpji8uMF2675mqaTSEm2DCbfJA7fiRKtiaqkaLN
+23744
+451125
+16310.29024
+31
+26:30.1
+4shdnB4wA5TA5wphgD1gQFmbaAACtbUyiepLDUoopump
+FK8wyChCQ1RYkpJBFffTiK43KodsfMzrHSegqYLKzVJW
+sell
+-2325867.672
+8NJ7Ujpji8uMF2675mqaTSEm2DCbfJA7fiRKtiaqkaLN
+130247
+2474675
+16169.38152
+32
+26:30.2
+2NzsVSVdBFVN5VMFkC77b7Qvv9JH5CeRTA6pMML3pump
+EHkkD5t8HcNf1KB5VR1zrW1sKsN18wJk8VHqmeSxABmW
+buy
+1653075.55
+Hsps5xFPLbs12MJaZvSUTShKqefREg4HSQr9sVJPMAoT
+100001
+1900001
+17599.36999
+33
+26:30.4
+NkqS9fiK1NV3qx6nL8MKvY2XAwX2vf3oPYYhhfppump
+HCQEKvZqLmM4XVUxLo9b9YPwfoszbJ7mT7vWdJkdXYrb
+sell
+-23043978.5
+CPatGoREuu2zqUM2CchgWsghqK1QHr4P33zQrFAEE8B6
+507648
+9645307
+6218.632574
+34
+26:30.4
+NkqS9fiK1NV3qx6nL8MKvY2XAwX2vf3oPYYhhfppump
+5EU5Bah4GZ228NFVSf7cyk2JiRzrHtE7r9HvvCuA6HGj
+sell
+-22612101.05
+CPatGoREuu2zqUM2CchgWsghqK1QHr4P33zQrFAEE8B6
+472551
+8978456
+5906.297938
+35
+26:30.4
+2pG1CHKXQV2rzKELJN3kbemmQUY38mvma3zPdhenpump
+HZ25QwwAT9oyWcctQEAmJxcLfLfUAN75xW7pYgDeuy8v
+sell
+-159387.8891
+AXqMmBYYMHMcTqXCLPpg5ZBoxGbYL8xwTiTPHBWGqGxR
+7318
+139025
+13309.51276
+36
+26:30.4
+2pG1CHKXQV2rzKELJN3kbemmQUY38mvma3zPdhenpump
+HZ25QwwAT9oyWcctQEAmJxcLfLfUAN75xW7pYgDeuy8v
+sell
+-159387.8891
+AXqMmBYYMHMcTqXCLPpg5ZBoxGbYL8xwTiTPHBWGqGxR
+7318
+139025
+13309.51276
+37
+26:30.4
+25moJ9zLHE2Q9oisqSMKjkS4XjaGL5J6pP1yftDYpump
+6oBuhLtp1p8hWu6mir8g5QruRcVDBMtccrQvaArnTZUL
+buy
+2450781.045
+EC6F58bJae7rLn1MJomScWe9pj7p94cfHKxtirN1hBrW
+73753
+1401298
+8756.400484
+38
+26:30.5
+4shdnB4wA5TA5wphgD1gQFmbaAACtbUyiepLDUoopump
+GhDc3GuTkTXR7XkJjTDKh5wWNcjxVZMSMaXMLQ8z5z2V
+sell
+-22538123.16
+8NJ7Ujpji8uMF2675mqaTSEm2DCbfJA7fiRKtiaqkaLN
+1206055
+22915027
+14893.63194
+39
+26:30.6
+GoFKomYhWUGexFtUS3ysKPezTv4PA3ytBTySLwTcpump
+FtCEDzfaeZxmbnV3X5WKXH97Zdw6KoNpS6ubp4q8EpoL
+buy
+7983565.796
+2x7mKuTQERGHDqz4KNwUDyNwxszW5X77FsT7Gm74bXZq
+249593
+4742260
+9167.798863
+40
+26:30.6
+E99SqUkMfXx8ev6qwKeBNBC6635WXXH1AUsLu6YQpump
+BkAJxEZCNmYR1kcH6JgoMAhx59o3kj5bvBWXLABGcqwp
+sell
+-155489.2835
+BBoPP6x29qut76PSGKvrfqTrdbN7w9HktCnV9tqntnEH
+6000
+114000
+11187.78795
+41
+26:30.6
+5vf7gwu4YM4J8b1LbnjH7RYZwruDtTAoJiNvetvUpump
+85964jo3v6AcqDsAQTqWVEQ3QrBSD889tdrFpi85ZKt4
+sell
+-2168533.186
+9HBgrs35Ye1eXfUyVUuack6qPks4yvWq6BcadH2a9G99
+84529
+1606050
+11266.04846
+42
+26:30.6
+2pG1CHKXQV2rzKELJN3kbemmQUY38mvma3zPdhenpump
+HZ25QwwAT9oyWcctQEAmJxcLfLfUAN75xW7pYgDeuy8v
+sell
+-159387.8891
+AXqMmBYYMHMcTqXCLPpg5ZBoxGbYL8xwTiTPHBWGqGxR
+7318
+139025
+13309.51276
+43
+26:30.6
+E99SqUkMfXx8ev6qwKeBNBC6635WXXH1AUsLu6YQpump
+BkAJxEZCNmYR1kcH6JgoMAhx59o3kj5bvBWXLABGcqwp
+sell
+-155489.2835
+BBoPP6x29qut76PSGKvrfqTrdbN7w9HktCnV9tqntnEH
+6000
+114000
+11187.78795
+44
+26:30.9
+6gBJh3Dp4WreYHBcNi7EnkqJXakxSwBnBFudyCHupump
+CaJodF3yMRKLbjHk7d6jGg1JV9kVQgnSieYGzCfXpexj
+sell
+-22027460.95
+EDRTuYrtCkzjv2grxvtkhkokeSFt4tyMzTeUN51k6TP1
+325494
+6184374
+4195.749459
+45
+26:31.1
+4shdnB4wA5TA5wphgD1gQFmbaAACtbUyiepLDUoopump
+6CRoq8pCwqh51WyVAtCEd3bdQsgrefiZ1xh6sVWdRBHQ
+buy
+9382970.823
+8NJ7Ujpji8uMF2675mqaTSEm2DCbfJA7fiRKtiaqkaLN
+490100
+9311882
+15405.73051
+46
+26:31.1
+DHgTSAVz1bGxqzGGcEX9Zw46siX5kYCMtFcy42mXpump
+Em76HgVnztioEAHA8iuLqZe4ys2gFVaovXF2WPcbXkDA
+buy
+16716.07804
+EsHu56bkASf1d38jt4dLN6QxCCBk5CF4VKifANrFowKn
+491
+9312
+8502.707173
+47
+26:31.2
+E99SqUkMfXx8ev6qwKeBNBC6635WXXH1AUsLu6YQpump
+BkAJxEZCNmYR1kcH6JgoMAhx59o3kj5bvBWXLABGcqwp
+sell
+-155489.2835
+BBoPP6x29qut76PSGKvrfqTrdbN7w9HktCnV9tqntnEH
+6000
+114000
+11187.78795
+48
+26:31.3
+B3hn6HzTDh64oWwVrDPm3L3HPPm5Tyr6E8bEmq66pump
+GQ18H8AviagJF5EpurQQ2WdWV8dG8Y1wSVAVVWgkq4Ek
+sell
+-14104181.48
+BmjWBqmRBsPGGyfxYtfTGA326g1dA3pbwELGHYLKKmJy
+298821
+5677592
+6045.510457
+49
+26:31.3
+25moJ9zLHE2Q9oisqSMKjkS4XjaGL5J6pP1yftDYpump
+D4PFdhyYdHWnCm8BEHSweGkctnaabnvDnf1mvw4BxwqZ
+sell
+-1189556.617
+EC6F58bJae7rLn1MJomScWe9pj7p94cfHKxtirN1hBrW
+35860
+681333
+8727.936306
+50
+26:31.4
+7zRCQGR8yGWpm1XWiNcHLqWriMvNz9b6rrDghcuU6KJf
+AkX1CcaqLmtEqF9nficLMuLR1tvPdLWJ5iR82Wf4KtQA
+sell
+-39474881.76
+GZVSEAajExLJEvACHHQcujBw7nJq98GWUEZtood9LM9b
+787904
+14970171
+5539.372006
+Data Explorer
+901.94 MB
+
+Sample_Dataset.csv
+
+evaluation_set_30s_chunk_001.csv
+
+evaluation_set_30s_chunk_002.csv
+
+evaluation_set_30s_chunk_003.csv
+
+evaluation_set_30s_chunk_004.csv
+
+evaluation_set_30s_chunk_005.csv
+
+Summary
+6 files
+
+199 columns
+
+
+Download All
+kaggle competitions download -c alpha-radar-solana-sprint
+Download data
+
+Metadata
+
+
+
+
+
+NOTE : PLEASE READ!
+
+**Dataset Update: New Evaluation Set & Submission Row Count**
+Hi everyone,
+
+We’ve just updated the evaluation dataset for this competition to improve scoring accuracy.
+As a result, the number of required rows in each submission has changed.
+
+What Changed:
+
+The evaluation dataset has been updated with the final version (evaluation-set-30s).
+
+The new dataset contains 64,208 tokens.
+
+Your submission CSV must now include exactly 64,208 rows — one for each mint_token_id in the evaluation set.
+
+What You Need to Do
+
+Please re-generate your predictions using the updated dataset.
+
+Re-upload your submission file (same format):
+
+mint_token_id,is_target
+,0
+,1
+…
+
+Old submissions (from before this update) will no longer be valid and will show an error.
+
+Deadline and Leaderboard
+
+The competition timeline remains unchanged.
+
+The leaderboard will be refreshed automatically once new submissions are processed.
+
+Thank you for your patience — this update ensures fairer and more accurate evaluation for everyone.
+If you have any questions or run into issues generating the new submission, please ask in this thread.
+
+— Twain
